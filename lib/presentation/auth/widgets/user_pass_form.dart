@@ -1,7 +1,8 @@
 import 'package:brainwavesocialapp/common/common.dart';
+import 'package:brainwavesocialapp/domain/domain.dart';
 import 'package:flutter/material.dart';
 
-class UserPassForm extends StatelessWidget  {
+class UserPassForm extends StatelessWidget with EmailPassValidators {
   UserPassForm({
     super.key,
     required this.buttonLabel,
@@ -27,11 +28,13 @@ class UserPassForm extends StatelessWidget  {
         children: <Widget>[
           AppTextFormField(
             fieldController: userNameController,
+            fieldValidator: validateEmail,
             label: 'Username',
           ),
           GapWidgets.h8,
           AppTextFormField(
             fieldController: passwordController,
+            fieldValidator: validatePassword,
             obscureText: true,
             label: 'Password',
           ),

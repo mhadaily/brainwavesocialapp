@@ -1,7 +1,8 @@
 import 'package:brainwavesocialapp/common/common.dart';
+import 'package:brainwavesocialapp/domain/domain.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends StatelessWidget with EmailPassValidators {
   ForgotPasswordPage({super.key});
 
   final emailController = TextEditingController();
@@ -18,6 +19,7 @@ class ForgotPasswordPage extends StatelessWidget {
             GapWidgets.h8,
             AppTextFormField(
               fieldController: emailController,
+              fieldValidator: validateEmail,
               label: 'Email',
             ),
             GapWidgets.h8,

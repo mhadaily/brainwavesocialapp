@@ -4,13 +4,13 @@ class AppTextFormField extends StatelessWidget {
   const AppTextFormField({
     super.key,
     required this.fieldController,
-    // required this.fieldValidator,
+    required this.fieldValidator,
     required this.label,
     this.obscureText = false,
   });
 
   final TextEditingController fieldController;
-  // final String? Function(String?) fieldValidator;
+  final String? Function(String?) fieldValidator;
   final String label;
   final bool obscureText;
 
@@ -24,7 +24,7 @@ class AppTextFormField extends StatelessWidget {
         labelText: label,
         border: const OutlineInputBorder(),
       ),
-      // validator: fieldValidator,
+      validator: fieldValidator,
     );
   }
 }
