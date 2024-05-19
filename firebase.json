@@ -1,0 +1,62 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "brainwave-social-media",
+          "appId": "1:219476042280:android:b5cb0397cd4ce343aa8b1d",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "brainwave-social-media",
+          "appId": "1:219476042280:ios:f4edd145c07fd395aa8b1d",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "brainwave-social-media",
+          "appId": "1:219476042280:ios:f4edd145c07fd395aa8b1d",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "brainwave-social-media",
+          "configurations": {
+            "android": "1:219476042280:android:b5cb0397cd4ce343aa8b1d",
+            "ios": "1:219476042280:ios:f4edd145c07fd395aa8b1d",
+            "macos": "1:219476042280:ios:f4edd145c07fd395aa8b1d",
+            "web": "1:219476042280:web:86385c10a9ab790daa8b1d",
+            "windows": "1:219476042280:web:a8c9b788c7682e29aa8b1d"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}
