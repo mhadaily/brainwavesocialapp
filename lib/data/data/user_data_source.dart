@@ -215,23 +215,6 @@ class _UserRemoteDataSource implements UserRepository {
   }
 
   @override
-  Future<void> updateUserDeviceToken(String uid, String token) {
-    final ref = databaseDataSource
-        .collection(
-          CollectionsName.users.name,
-        )
-        .doc(
-          uid,
-        );
-    return ref.set(
-      {
-        'deviceTokens': FieldValue.arrayUnion([token]),
-      },
-      SetOptions(merge: true),
-    );
-  }
-
-  @override
   Future<void> updateAvatarImage({required String uid, String? photoUrl}) {
     return databaseDataSource
         .collection(CollectionsName.users.name)
@@ -252,6 +235,24 @@ class _UserRemoteDataSource implements UserRepository {
       {
         'coverImageUrl': coverImageUrl,
       },
+    );
+  }
+
+  @override
+  Future<void> updateUserDeviceToken(String uid, String token) {
+    final ref = databaseDataSource
+        .collection(
+          CollectionsName.users.name,
+        )
+        .doc(
+          uid,
+        );
+
+    return ref.set(
+      {
+        'deviceTokens': FieldValue.arrayUnion([token]),
+      },
+      SetOptions(merge: true),
     );
   }
 }

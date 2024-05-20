@@ -26,8 +26,19 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to camera to take photo for avatar and cover</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow access to microphone to record audio for post</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to photo library to be able to upload your cover and avatar</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -45,11 +56,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow access to camera to take photo for avatar and cover</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow access to microphone to record audio for post</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow access to photo library to be able to upload your cover and avatar</string>
 </dict>
 </plist>

@@ -17,9 +17,13 @@ abstract interface class LoginUserCase {
 class _LoginUserCase implements LoginUserCase {
   _LoginUserCase(
     this._authRepository,
+    this._notificationRepository,
+    this._userRepository,
   );
 
   final AuthRepository _authRepository;
+  final NotificationRepository _notificationRepository;
+  final UserRepository _userRepository;
 
   @override
   loginWithEmailPassword({
@@ -31,7 +35,7 @@ class _LoginUserCase implements LoginUserCase {
       password: password,
     );
     final isUserLoggedIn = user.email != null;
-
+    requestPermission(user);
     return isUserLoggedIn;
   }
 
@@ -39,7 +43,7 @@ class _LoginUserCase implements LoginUserCase {
   loginWithGoogle() async {
     final user = await _authRepository.loginWithGoogle();
     final isUserLoggedIn = user.email != null;
-
+    requestPermission(user);
     return isUserLoggedIn;
   }
 
@@ -47,8 +51,18 @@ class _LoginUserCase implements LoginUserCase {
   loginWithApple() async {
     final user = await _authRepository.loginWithApple();
     final isUserLoggedIn = user.email != null;
-
+    requestPermission(user);
     return isUserLoggedIn;
+  }
+
+  Future<void> requestPermission(user) async {
+    if (user.uid == null) return;
+    await _notificationRepository.requestPermission();
+    final token = await _notificationRepository.token;
+
+    if (token != null) {
+      await _userRepository.updateUserDeviceToken(user.uid, token);
+    }
   }
 }
 
@@ -56,5 +70,7 @@ class _LoginUserCase implements LoginUserCase {
 final loginUseCaseProvider = Provider<LoginUserCase>(
   (ref) => _LoginUserCase(
     ref.watch(authRepositoryProvider),
+    ref.watch(notificationRepositoryProvider),
+    ref.watch(userRepositoryProvider),
   ),
 );
