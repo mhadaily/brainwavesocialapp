@@ -1,4 +1,5 @@
 import 'package:brainwavesocialapp/data/data.dart';
+import 'package:brainwavesocialapp/domain/logics/helpers.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -26,6 +27,12 @@ class AppUser extends UserInfoDataModel {
   String get initials => firstName != null && lastName != null
       ? '${firstName![0]}${lastName![0]}'
       : '?';
+
+  // adding a logic for getting 200x200 thumbnail
+  // because we enabled Firebase Extension to generate thumbnail automatically
+  String get avatarThumbnail => photoUrl != null
+      ? Helpers.getThumbnailFromPhotoUrl(photoUrl)
+      : 'https://via.placeholder.com/150';
 
   toUserInfoDataModel() {
     return UserInfoDataModel(

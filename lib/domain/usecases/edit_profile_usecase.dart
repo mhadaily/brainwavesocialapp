@@ -77,7 +77,10 @@ class _EditProfileUseCase implements EditProfileUseCase {
       case ImageType.avatar:
         await _userRepository.updateAvatarImage(
           uid: uid,
-          photoUrl: downloadUrl, // todo: replace with thumbnail _200x200
+          // todo: replace with thumbnail _200x200
+          // Check [Helpers.getThumbnailFromPhotoUrl]
+          // check lib/domain/entity/user.dart
+          photoUrl: downloadUrl,
         );
         break;
     }
