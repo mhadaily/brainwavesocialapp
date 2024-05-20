@@ -150,25 +150,22 @@ class UploadImageMetadata {
 final updateImageStateProvider =
     FutureProvider.autoDispose.family<void, UploadImageMetadata>(
   (ref, metadata) {
-    // return ref.watch(editProfileUseCaseProvider).updateProfileImage(
-    //       uid: metadata.uid,
-    //       filePath: metadata.filePath,
-    //       type: metadata.type,
-    //     );
-
-    return Future<void>.value();
+    return ref.watch(editProfileUseCaseProvider).updateProfileImage(
+          uid: metadata.uid,
+          filePath: metadata.filePath,
+          type: metadata.type,
+        );
   },
 );
 
 final uploadProgressProvider =
     StreamProvider.autoDispose.family<double, UploadImageMetadata>(
   (ref, metadata) {
-    // return ref.watch(editProfileUseCaseProvider).getUploadProgress(
-    //       uid: metadata.uid,
-    //       filePath: metadata.filePath,
-    //       type: metadata.type,
-    //     );
-    return const Stream<double>.empty();
+    return ref.watch(editProfileUseCaseProvider).getUploadProgress(
+          uid: metadata.uid,
+          filePath: metadata.filePath,
+          type: metadata.type,
+        );
   },
 );
 
@@ -187,10 +184,10 @@ class DeleteImageMetadata {
 final deleteImageStateProvider =
     FutureProvider.autoDispose.family<void, DeleteImageMetadata>(
   (ref, metadata) {
-    // return ref.watch(editProfileUseCaseProvider).deleteProfileImage(
-    //       uid: metadata.uid,
-    //       imageUrl: metadata.imageUrl,
-    //       type: metadata.type,
-    //     );
+    return ref.watch(editProfileUseCaseProvider).deleteProfileImage(
+          uid: metadata.uid,
+          imageUrl: metadata.imageUrl,
+          type: metadata.type,
+        );
   },
 );

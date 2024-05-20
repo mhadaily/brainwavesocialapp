@@ -18,13 +18,13 @@ abstract interface class UserRepository {
   });
   Future<int?> getFollowersCount(String uid);
   Future<int?> getFollowingCount(String uid);
-  Future<void> updateAvatar({
+  Future<void> updateUserDeviceToken(String uid, String token);
+  Future<void> updateAvatarImage({
     required String uid,
     String? photoUrl,
   });
-  Future<void> updateCover({
+  Future<void> updateCoverImage({
     required String uid,
     String? coverImageUrl,
   });
-  Future<void> updateUserDeviceToken(String uid, String token);
 }

@@ -78,30 +78,21 @@ class _UserRepository implements UserRepository {
   }
 
   @override
-  Future<void> updateAvatar({
-    required String uid,
-    String? photoUrl,
-  }) {
-    return databaseDataSource.updateAvatar(
-      uid: uid,
-      photoUrl: photoUrl,
-    );
+  Future<void> updateUserDeviceToken(String uid, String token) {
+    return databaseDataSource.updateUserDeviceToken(uid, token);
   }
 
   @override
-  Future<void> updateCover({
-    required String uid,
-    String? coverImageUrl,
-  }) {
-    return databaseDataSource.updateCover(
+  Future<void> updateAvatarImage({required String uid, String? photoUrl}) {
+    return databaseDataSource.updateAvatarImage(uid: uid, photoUrl: photoUrl);
+  }
+
+  @override
+  Future<void> updateCoverImage({required String uid, String? coverImageUrl}) {
+    return databaseDataSource.updateCoverImage(
       uid: uid,
       coverImageUrl: coverImageUrl,
     );
-  }
-
-  @override
-  Future<void> updateUserDeviceToken(String uid, String token) {
-    return databaseDataSource.updateUserDeviceToken(uid, token);
   }
 }
 

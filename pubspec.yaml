@@ -18,9 +18,9 @@ dependencies:
   json_annotation: ^4.9.0
   google_sign_in: ^6.2.1
   firebase_cloud_firestore: ^4.17.3
-  cached_network_image: ^3.3.1
+  firebase_storage: ^11.7.5
   image_picker: ^1.1.1
-  
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:firebase_cloud_firestore/firebase_cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/collections.dart';
@@ -262,6 +263,8 @@ class _ContentDataSource implements ContentRepository {
 final contentDataSourceProvider = Provider(
   (ref) => _ContentDataSource(
     firestore: FirebaseFirestore.instance
-      ..settings = const Settings(persistenceEnabled: true),
+      ..settings = const Settings(
+        persistenceEnabled: true,
+      ),
   ),
 );

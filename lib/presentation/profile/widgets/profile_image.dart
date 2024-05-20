@@ -3,17 +3,20 @@ import 'package:brainwavesocialapp/domain/domain.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../state/profile_state.dart';
+import 'image_progress.dart';
 
 class ProfileImageUpdater extends ConsumerWidget {
-  const ProfileImageUpdater({
+  ProfileImageUpdater({
     super.key,
     required this.imageUrl,
     required this.userId,
     required this.type,
   });
 
+  final ImagePicker imagePicker = ImagePicker();
   final ImageType type;
   final String imageUrl;
   final String userId;
@@ -21,7 +24,28 @@ class ProfileImageUpdater extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () async {},
+      onTap: () async {
+        final image = await imagePicker.pickImage(source: ImageSource.gallery);
+
+        if (image != null) {
+          final metaData = UploadImageMetadata(
+            uid: userId,
+            filePath: image.path,
+            type: type,
+          );
+
+          ref.read(updateImageStateProvider(metaData));
+
+          if (context.mounted) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return DialogProgressBar(metaData: metaData);
+              },
+            );
+          }
+        }
+      },
       child: type == ImageType.avatar
           ? Stack(
               children: [
@@ -52,15 +76,14 @@ class ProfileImageUpdater extends ConsumerWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  ref.read(
-                                    deleteImageStateProvider(
-                                      DeleteImageMetadata(
-                                        uid: userId,
-                                        imageUrl: imageUrl,
-                                        type: type,
-                                      ),
-                                    ),
+                                  final metaData = DeleteImageMetadata(
+                                    uid: userId,
+                                    imageUrl: imageUrl,
+                                    type: type,
                                   );
+
+                                  ref.read(deleteImageStateProvider(metaData));
+
                                   AppRouter.pop(context);
                                 },
                                 child: const Text('Delete'),
