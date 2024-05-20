@@ -1,15 +1,19 @@
 import 'package:brainwavesocialapp/data/data.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// 1- First abstract the class
 abstract interface class LoginUserCase {
   Future<bool> loginWithEmailPassword({
     required String email,
     required String password,
   });
+
   Future<bool> loginWithGoogle();
   Future<bool> loginWithApple();
 }
 
+// 2- Implement the class
 class _LoginUserCase implements LoginUserCase {
   _LoginUserCase(
     this._authRepository,
@@ -18,32 +22,38 @@ class _LoginUserCase implements LoginUserCase {
   final AuthRepository _authRepository;
 
   @override
-  Future<bool> loginWithGoogle() async {
-    final user = await _authRepository.loginWithGoogle();
-    return user.email != null;
-  }
-
-  @override
-  Future<bool> loginWithEmailPassword({
+  loginWithEmailPassword({
     required String email,
     required String password,
   }) async {
-    return _authRepository
-        .loginWithEmailPassword(
-          email: email,
-          password: password,
-        )
-        .then((value) => value != null);
+    final user = await _authRepository.loginWithEmailPassword(
+      email: email,
+      password: password,
+    );
+    final isUserLoggedIn = user.email != null;
+
+    return isUserLoggedIn;
   }
 
   @override
-  Future<bool> loginWithApple() async {
+  loginWithGoogle() async {
+    final user = await _authRepository.loginWithGoogle();
+    final isUserLoggedIn = user.email != null;
+
+    return isUserLoggedIn;
+  }
+
+  @override
+  loginWithApple() async {
     final user = await _authRepository.loginWithApple();
-    return user.email != null;
+    final isUserLoggedIn = user.email != null;
+
+    return isUserLoggedIn;
   }
 }
 
-final loginUseCaseProvider = Provider<_LoginUserCase>(
+// 3- Create a provider
+final loginUseCaseProvider = Provider<LoginUserCase>(
   (ref) => _LoginUserCase(
     ref.watch(authRepositoryProvider),
   ),

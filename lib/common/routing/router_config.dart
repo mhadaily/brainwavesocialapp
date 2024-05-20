@@ -21,10 +21,10 @@ final routerConfig = Provider<GoRouter>(
       return null;
     },
     initialLocation: '/',
-    routes: [
+    routes: <RouteBase>[
       GoRoute(
         path: '/auth',
-        name: RouterNames.loginPage.name,
+        name: RouterNames.authPage.name,
         builder: (context, state) => const LoginPage(),
         routes: [
           GoRoute(
@@ -41,8 +41,46 @@ final routerConfig = Provider<GoRouter>(
       ),
       GoRoute(
         path: '/',
-        name: RouterNames.feedPage.name,
-        builder: (context, state) => const FeedsPage(),
+        name: RouterNames.feedsPage.name,
+        builder: (context, state) => FeedsPage(),
+        routes: [
+          GoRoute(
+            path: 'profile/:userId',
+            name: RouterNames.userProfilePage.name,
+            builder: (context, state) => UserProfilePage(
+              userId: state.pathParameters['userId']!,
+            ),
+            routes: [
+              GoRoute(
+                path: 'edit',
+                name: RouterNames.editProfilePage.name,
+                builder: (context, state) => EditProfilePage(),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: 'post/:postId',
+            name: RouterNames.postDetailPage.name,
+            builder: (context, state) => PostDetailPage(
+              postId: state.pathParameters['postId']!,
+            ),
+          ),
+          GoRoute(
+            path: 'settings',
+            name: RouterNames.settingsPage.name,
+            builder: (context, state) => const SettingsPage(),
+          ),
+          GoRoute(
+            path: 'search',
+            name: RouterNames.searchPage.name,
+            builder: (context, state) => const SearchPage(),
+          ),
+          GoRoute(
+            path: 'notifications',
+            name: RouterNames.notificationsPage.name,
+            builder: (context, state) => const NotificationsPage(),
+          ),
+        ],
       ),
     ],
   ),

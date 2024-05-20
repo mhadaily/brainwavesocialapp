@@ -1,6 +1,5 @@
+import 'package:brainwavesocialapp/domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../domain/usercases/register_usecase.dart';
 
 final registerStateProvider = AsyncNotifierProvider<RegisterState, bool>(
   () {
@@ -10,6 +9,7 @@ final registerStateProvider = AsyncNotifierProvider<RegisterState, bool>(
 
 class RegisterState extends AsyncNotifier<bool> {
   get _registerUseCase => ref.read(registerUseCaseProvider);
+
   @override
   bool build() => false;
 
@@ -18,13 +18,11 @@ class RegisterState extends AsyncNotifier<bool> {
     String password,
   ) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(
-      () {
-        return _registerUseCase.registerWithEmailPassword(
-          email: email,
-          password: password,
-        );
-      },
-    );
+    state = await AsyncValue.guard(() {
+      return _registerUseCase.registerWithEmailPassword(
+        email: email,
+        password: password,
+      );
+    });
   }
 }

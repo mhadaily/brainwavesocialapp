@@ -3,7 +3,7 @@ import 'package:brainwavesocialapp/exceptions/app_exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../states/login_state.dart';
+import '../state/login_state.dart';
 import '../widgets/social_login.dart';
 import '../widgets/user_pass_form.dart';
 import '../widgets/welcome_text.dart';
@@ -15,20 +15,27 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loginState = ref.watch(loginStateProvider);
 
-    ref.listen(loginStateProvider, (prev, next) {
-      if (next.hasError) {
-        final error = next.error;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              error is AppException ? error.message : 'Something went wrong!',
+    // in case of error show a snackbar
+    ref.listen(
+      loginStateProvider,
+      (prev, next) {
+        if (next.hasError) {
+          final error = next.error;
+          debugPrint('Error: $error');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                error is AppFirebaseException
+                    ? error.message
+                    : 'Something went wrong!',
+              ),
             ),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      }
-    });
+          );
+        } else {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        }
+      },
+    );
 
     return CommonPageScaffold(
       title: 'Login',
@@ -89,14 +96,14 @@ class LoginPage extends ConsumerWidget {
                 GapWidgets.h8,
                 const Text('Or login with'),
                 SocialLogin(
-                  onGoogleLogin: () {
+                  onGooglePressed: () {
                     ref
                         .read(
                           loginStateProvider.notifier,
                         )
                         .signInGoogle();
                   },
-                  onAppleLogin: () {
+                  onApplePressed: () {
                     ref
                         .read(
                           loginStateProvider.notifier,

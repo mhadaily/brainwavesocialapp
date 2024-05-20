@@ -1,6 +1,17 @@
+import 'package:brainwavesocialapp/domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/usercases/user_usecase.dart';
+final feedStateProvider = StreamProvider.autoDispose<List<Post>>(
+  (ref) {
+    return ref.watch(feedUseCaseProvider).getFeedPosts();
+  },
+);
+
+final createPostStateProvider = FutureProvider.autoDispose.family<void, String>(
+  (ref, content) async {
+    return ref.watch(feedUseCaseProvider).createPost(content);
+  },
+);
 
 final signOutStateProvider = Provider<Future<void>>(
   (ref) {

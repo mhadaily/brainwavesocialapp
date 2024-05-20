@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 class SocialLogin extends StatelessWidget {
   const SocialLogin({
     super.key,
-    this.onGoogleLogin,
-    this.onAppleLogin,
+    this.onGooglePressed,
+    this.onApplePressed,
   });
 
-  final VoidCallback? onGoogleLogin;
-  final VoidCallback? onAppleLogin;
+  final VoidCallback? onGooglePressed;
+  final VoidCallback? onApplePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,12 @@ class SocialLogin extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         OutlinedButton(
-          onPressed: onGoogleLogin,
+          onPressed: onGooglePressed,
           child: const Text('Google'),
         ),
         GapWidgets.w16,
         OutlinedButton(
-          onPressed: onAppleLogin,
+          onPressed: onApplePressed,
           child: const Text('Apple'),
         ),
       ],

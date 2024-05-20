@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
       title: "Social App",
       theme: AppTheme.lightThemeData,
       darkTheme: AppTheme.darkThemeData,
-      themeMode: ThemeMode.system,
+      themeMode: ref.watch(themeModeProvider),
       routerConfig: ref.watch(AppRouter.config),
     );
   }

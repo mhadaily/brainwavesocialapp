@@ -6,7 +6,7 @@ class CommonPageScaffold extends StatelessWidget {
     required this.title,
     required this.child,
     this.automaticallyImplyLeading = true,
-    this.centerTitle = false,
+    this.centerTitle = true,
     this.withPadding = true,
     this.bottomNavigationBar,
     this.actions,
@@ -14,30 +14,35 @@ class CommonPageScaffold extends StatelessWidget {
   });
 
   final String title;
-  final Widget child;
   final bool automaticallyImplyLeading;
   final bool centerTitle;
   final bool withPadding;
-  final List<Widget>? actions;
+  final Widget child;
   final Widget? leading;
-  final Widget? bottomNavigationBar;
+  final List<Widget>? actions;
+  final BottomNavigationBar? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       appBar: AppBar(
-        title: Text(title),
-        automaticallyImplyLeading: automaticallyImplyLeading,
-        centerTitle: centerTitle,
-        actions: actions,
         leading: leading,
+        centerTitle: centerTitle,
+        automaticallyImplyLeading: automaticallyImplyLeading,
+        title: Text(title),
+        actions: actions,
       ),
-      body: withPadding
-          ? Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: child,
-            )
-          : child,
+      body: SafeArea(
+        child: withPadding
+            ? Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                ),
+                child: child,
+              )
+            : child,
+      ),
       bottomNavigationBar: bottomNavigationBar,
     );
   }

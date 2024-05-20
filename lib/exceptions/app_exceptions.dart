@@ -18,6 +18,10 @@ class AppFirebaseException extends AppException {
   );
 }
 
+class UserNotFoundException extends AppException {
+  const UserNotFoundException() : super('USER_NOT_FOUND', 'User not found');
+}
+
 class UnknownException extends AppException {
   const UnknownException() : super('UNKNOWN', 'An unknown error occurred');
 }

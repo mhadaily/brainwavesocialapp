@@ -15,5 +15,7 @@ class AppRouter {
     );
   }
 
+  static pop(context) => GoRouter.of(context).pop();
+
   static Provider<GoRouter> config = routerConfig;
 }

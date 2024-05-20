@@ -1,6 +1,7 @@
 import 'package:brainwavesocialapp/data/data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// 1- First abstract the class
 abstract interface class AuthStateUserCase {
   Stream<bool> isAuthenticated();
 }
@@ -17,6 +18,7 @@ class _RegisterUserCase implements AuthStateUserCase {
   }
 }
 
+// 3- Create a provider
 final authStateUseCaseProvider = Provider<AuthStateUserCase>(
   (ref) => _RegisterUserCase(ref.watch(authRepositoryProvider)),
 );

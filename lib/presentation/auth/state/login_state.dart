@@ -1,4 +1,4 @@
-import 'package:brainwavesocialapp/domain/usercases/login_usercase.dart';
+import 'package:brainwavesocialapp/domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginStateProvider = AsyncNotifierProvider<LoginState, bool>(
@@ -28,17 +28,6 @@ class LoginState extends AsyncNotifier<bool> {
     });
   }
 
-  signInApple() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() {
-      return ref
-          .watch(
-            loginUseCaseProvider,
-          )
-          .loginWithApple();
-    });
-  }
-
   signInGoogle() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() {
@@ -47,6 +36,17 @@ class LoginState extends AsyncNotifier<bool> {
             loginUseCaseProvider,
           )
           .loginWithGoogle();
+    });
+  }
+
+  signInApple() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() {
+      return ref
+          .watch(
+            loginUseCaseProvider,
+          )
+          .loginWithApple();
     });
   }
 }
