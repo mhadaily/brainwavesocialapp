@@ -1,9 +1,9 @@
+import 'package:brainwavesocialapp/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../presentation/post/post_state.dart';
 import '../../presentation/profile/state/profile_state.dart';
-import '../routing/route_names.dart';
-import '../routing/router.dart';
 
 class PostFooter extends ConsumerWidget {
   const PostFooter({
@@ -21,21 +21,25 @@ class PostFooter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const isPostLiked = false;
-    const postLikesCount = 0;
+    final isPostLiked =
+        ref.watch(isPostLikedByCurrentUserProvider(postUid)).valueOrNull ??
+            false;
+    final postLikesCount =
+        ref.watch(postLikesCountProvider(postUid)).valueOrNull ?? 0;
 
-    const postCommentCounts = 0;
+    final postCommentCounts =
+        ref.watch(postCommentsCountProvider(postUid)).valueOrNull ?? 0;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextButton.icon(
-          icon: const Icon(
+          icon: Icon(
             postCommentCounts != 0
                 ? Icons.mode_comment
                 : Icons.mode_comment_outlined,
           ),
-          label: const Text('$postCommentCounts'),
+          label: Text('$postCommentCounts'),
           onPressed: onTapEnable
               ? () {
                   AppRouter.go(
@@ -65,11 +69,11 @@ class PostFooter extends ConsumerWidget {
             );
           },
           child: TextButton.icon(
-            key: const ValueKey<int>(postLikesCount),
-            icon: const Icon(
+            key: ValueKey<int>(postLikesCount),
+            icon: Icon(
               isPostLiked ? Icons.favorite : Icons.favorite_border,
             ),
-            label: const Text('$postLikesCount'),
+            label: Text('$postLikesCount'),
             onPressed: onToggleLike,
           ),
         ),

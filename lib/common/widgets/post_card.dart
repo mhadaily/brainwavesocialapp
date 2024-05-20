@@ -1,14 +1,12 @@
+import 'package:brainwavesocialapp/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:brainwavesocialapp/domain/domain.dart';
 
-import '../routing/route_names.dart';
-import '../routing/router.dart';
-import 'gaps.dart';
+import '../../domain/entity/post.dart';
+import '../../presentation/post/post_state.dart';
 import 'post_body.dart';
 import 'post_footer.dart';
 import 'post_header.dart';
-import 'user_avatar.dart';
 
 class PostCard extends ConsumerWidget {
   const PostCard({
@@ -30,7 +28,9 @@ class PostCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const postOwner = AsyncValue.loading();
+    final postOwner = ref.watch(
+      getUserInfoStateProvider(post.ownerId),
+    );
 
     if (postOwner.isLoading) {
       return const Center(

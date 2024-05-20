@@ -9,10 +9,7 @@ import '../models/post.dart';
 class _ContentDataSource implements ContentRepository {
   _ContentDataSource({
     required this.firestore,
-  }) {
-    // Enable offline persistence
-    firestore.settings = const Settings(persistenceEnabled: true);
-  }
+  });
 
   final FirebaseFirestore firestore;
 
@@ -263,5 +260,8 @@ class _ContentDataSource implements ContentRepository {
 }
 
 final contentDataSourceProvider = Provider(
-  (ref) => _ContentDataSource(firestore: FirebaseFirestore.instance),
+  (ref) => _ContentDataSource(
+    firestore: FirebaseFirestore.instance
+      ..settings = const Settings(persistenceEnabled: true),
+  ),
 );
